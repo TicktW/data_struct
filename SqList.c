@@ -23,9 +23,50 @@ Status GetElem(SqList L, int i, ElemType *e){
     return OK;
 }
 
+Status InsertElem(SqList *L, int i, ElemType e)
+{
+    int k;
+    // if the data is full , throe err
+    if (L->length >= MAXSIZE)
+    {
+        return ERROR;
+    }
+    // if the i not correct , throw err ; i in 1,L.length
+    if (i<1 || i>L->length)
+    {
+        return ERROR;
+    }
+    // for elem from i to end , move to the next postion
+    for (k=L->length-1; k>=i-1;k--)
+    {
+        L->data[k+1] = L->data[k];
+    }
+    L->data[i-1] = e;
+    L->length++;
+    return OK;
+}
+
+Status DelElem(SqList *L, int i, ElemType *e)
+{
+    int k;
+    // i >=1  and i <= L.length
+    // L.length > 0
+    if (i<1 || i > L->length || L->length <= 0)
+    {
+        return ERROR;
+    }
+    *e = L->data[i-1];
+    for (k=i-1; k<=L->length-1; k++)
+    {
+        L->data[k] = L->data[k+1];
+    }
+    L->length--;
+    return OK;
+}
 
 int main(int argc, char const *argv[])
 {
-    printf("hello world \n");
+    SqList* list;
+
     return 0;
 }
